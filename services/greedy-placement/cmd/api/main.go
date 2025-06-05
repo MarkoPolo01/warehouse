@@ -1,0 +1,52 @@
+package main
+
+import (
+	"log"
+
+	"warehouse/services/greedy-placement/internal/config"
+	"warehouse/services/greedy-placement/internal/handler"
+	"warehouse/services/greedy-placement/internal/repository"
+	"warehouse/services/greedy-placement/internal/service"
+	"warehouse/services/greedy-placement/pkg/database"
+
+	"github.com/gin-gonic/gin"
+)
+
+func main() {
+	// Load configuration
+	cfg := config.LoadConfig()
+
+	// Initialize database connection
+	dbConfig := &database.Config{
+		Host:     cfg.DBHost,
+		Port:     cfg.DBPortInt,
+		User:     cfg.DBUser,
+		Password: cfg.DBPassword,
+		DBName:   cfg.DBName,
+		SSLMode:  "disable", // Adjust as needed
+	}
+
+	db, err := database.NewPostgresConnection(dbConfig)
+	if err != nil {
+		log.Fatalf("Error connecting to database: %v", err)
+	}
+	defer db.Close()
+
+	// Initialize dependencies
+	repo := repository.NewPostgresRepository(db)
+	placementService := service.NewPlacementService(repo)
+	placementHandler := handler.NewPlacementHandler(placementService)
+
+	// Setup router
+	router := gin.Default()
+
+	// Register routes
+	placementHandler.RegisterRoutes(router)
+
+	// Start server
+	serverAddr := ":" + cfg.ServerPort
+	log.Printf("Greedy Placement Service starting on %s", serverAddr)
+	if err := router.Run(serverAddr); err != nil {
+		log.Fatalf("Failed to run server: %v", err)
+	}
+} 

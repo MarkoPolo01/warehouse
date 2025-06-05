@@ -110,3 +110,57 @@ INSERT INTO algorithms (name, description, active) VALUES
     ('ABC-анализ', 'Размещение на основе ABC-анализа товаров', true),
     ('XYZ-анализ', 'Размещение на основе XYZ-анализа товаров', true),
     ('Гибридный', 'Комбинированный алгоритм с учетом всех параметров', true);
+
+INSERT INTO items (
+    item_id, 
+    name, 
+    weight, 
+    length, 
+    width, 
+    height, 
+    turnover
+) VALUES (
+    'ITEM123',
+    'Название товара',
+    1.5,  -- вес
+    30.0, -- длина
+    20.0, -- ширина
+    2.0,  -- высота
+    0.85  -- turnover для ABC-анализа (>= 0.8 для категории A)
+);
+
+INSERT INTO batches (
+    batch_id,
+    item_id,
+    quantity
+) VALUES (
+    'BATCH001',
+    'ITEM123',
+    10
+);
+
+INSERT INTO slots (
+    slot_id,
+    location_description,
+    max_weight,
+    max_length,
+    max_width,
+    max_height,
+    storage_conditions,
+    is_occupied,
+    zone_type,
+    level,
+    distance_from_exit
+) VALUES (
+    'SLOT-A-001',
+    'Зона быстрого доступа, уровень 1',
+    50.0,  -- максимальный вес
+    100.0, -- максимальная длина
+    100.0, -- максимальная ширина
+    200.0, -- максимальная высота
+    'Сухое помещение, комнатная температура',
+    false, -- не занят
+    'fast-access',
+    1,     -- уровень
+    10     -- расстояние от выхода
+);
