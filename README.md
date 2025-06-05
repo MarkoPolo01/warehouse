@@ -42,4 +42,5 @@ go run services/abc-placement/cmd/api/main.go
 go run services/xyz-placement/cmd/api/main.go
 старт микросервиса жадного алгоритма
 go run services/greedy-placement/cmd/api/main.go
- 
+ старт микросервиса генетического алгоритма
+go run services/genetic-placement/cmd/api/main.go
