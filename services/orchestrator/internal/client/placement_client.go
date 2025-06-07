@@ -164,7 +164,8 @@ func (c *PlacementClient) sendRequest(ctx context.Context, path string, req inte
 		return nil, fmt.Errorf("ошибка сериализации запроса: %w", err)
 	}
 
-	request, err := http.NewRequestWithContext(ctx, "POST", c.baseURL+path, bytes.NewBuffer(jsonData))
+	// Используем базовый URL без дополнительного пути
+	request, err := http.NewRequestWithContext(ctx, "POST", c.baseURL, bytes.NewBuffer(jsonData))
 	if err != nil {
 		return nil, fmt.Errorf("ошибка создания запроса: %w", err)
 	}
