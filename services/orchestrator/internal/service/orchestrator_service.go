@@ -130,9 +130,58 @@ func (s *OrchestratorService) selectBestResult(results []domain.ServiceResult) d
 	bestScore := -1.0
 
 	for _, result := range results {
-		if result.Response.Success && result.Response.Score > bestScore {
-			bestScore = result.Response.Score
+		if !result.Response.Success {
+			continue
+		}
+
+		// S = S0 + Δt + Δd + Δf
+		score := result.Response.BaseScore
+
+		// Δt - корректировка по времени отклика
+		switch {
+		case result.Response.ResponseTimeMs < 300:
+			score += 0.03
+		case result.Response.ResponseTimeMs > 1000:
+			score -= 0.05
+		}
+
+		// Δd - поправка в зависимости от расстояния до выхода
+		switch {
+		case result.Response.DistanceToExit < 5:
+			score += 0.05
+		case result.Response.DistanceToExit > 15:
+			score -= 0.03
+		}
+
+		// Δf - сумма надбавок за учёт дополнительных факторов
+		if result.Response.HasFixedSlot {
+			score += 0.07
+		}
+		if result.Response.HighWarehouseLoad {
+			score += 0.05
+		}
+		if result.Response.HighTurnover {
+			score += 0.05
+		}
+		if result.Response.HeavyItem {
+			score += 0.03
+		}
+		if result.Response.NoPlacementHistory {
+			score += 0.02
+		}
+		if result.Response.FastAccessZone {
+			score += 0.03
+		}
+		if result.Response.XYZCompliant {
+			score += 0.02
+		}
+
+		// Обновляем лучший результат, если текущий лучше
+		if score > bestScore {
+			bestScore = score
 			bestResult = result
+			// Сохраняем рассчитанную оценку в поле Score
+			bestResult.Response.Score = score
 		}
 	}
 

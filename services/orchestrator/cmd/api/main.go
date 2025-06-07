@@ -25,8 +25,8 @@ func main() {
 	orchestratorHandler.RegisterRoutes(router)
 
 	// Запуск сервера
-	log.Println("Orchestrator Service запущен на :8085")
-	if err := router.Run(":8085"); err != nil {
+	log.Println("Orchestrator Service запущен на :8086")
+	if err := router.Run(":8086"); err != nil {
 		log.Fatalf("Ошибка запуска сервера: %v", err)
 	}
 } 

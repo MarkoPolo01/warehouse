@@ -15,25 +15,29 @@ type Config struct {
 func NewConfig() *Config {
 	return &Config{
 		Services: map[string]ServiceConfig{
+			"abc": {
+				Name: "ABC Placement",
+				URL:  "http://localhost:8082",
+			},
 			"fixed": {
 				Name: "Fixed Placement",
 				URL:  "http://localhost:8080",
 			},
-			"abc": {
-				Name: "ABC Placement",
+			"free": {
+				Name: "Free Placement",
 				URL:  "http://localhost:8081",
+			},
+			"genetic": {
+				Name: "Genetic Placement",
+				URL:  "http://localhost:8085",
+			},
+			"greedy": {
+				Name: "Greedy Placement",
+				URL:  "http://localhost:8084",
 			},
 			"xyz": {
 				Name: "XYZ Placement",
-				URL:  "http://localhost:8082",
-			},
-			"dynamic": {
-				Name: "Dynamic Placement",
 				URL:  "http://localhost:8083",
-			},
-			"optimal": {
-				Name: "Optimal Placement",
-				URL:  "http://localhost:8084",
 			},
 		},
 	}
