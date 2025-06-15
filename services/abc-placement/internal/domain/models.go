@@ -1,13 +1,11 @@
 package domain
-
-// PlaceRequest represents a request to analyze or place an item
 type PlaceRequest struct {
 	ItemID   string  `json:"item_id"`
 	BatchID  string  `json:"batch_id"`
 	Quantity int     `json:"quantity"`
-	Command  string  `json:"command"` // "analyze" or "place"
+	Command  string  `json:"command"`
 
-	// Параметры товара
+	
 	Weight        float64 `json:"weight"`
 	Volume        float64 `json:"volume"`
 	TurnoverRate  float64 `json:"turnover_rate"`
@@ -21,28 +19,23 @@ type PlaceRequest struct {
 	StorageTemp   float64 `json:"storage_temp"`
 	StorageHumidity float64 `json:"storage_humidity"`
 
-	// Параметры склада
+
 	WarehouseLoad float64 `json:"warehouse_load"`
 	HasFixedSlot  bool    `json:"has_fixed_slot"`
 	FastAccessZone bool   `json:"fast_access_zone"`
 }
-
-// PlaceResponse represents the system's response to a placement request
 type PlaceResponse struct {
 	Success bool    `json:"success"`
-	SlotID  string  `json:"slot_id,omitempty"` // Use omitempty for optional fields
+	SlotID  string  `json:"slot_id,omitempty"` 
 	Comment string  `json:"comment"`
 	Score   float64 `json:"score"`
 }
 
-// Item represents an item from the database, including turnover for ABC analysis
 type Item struct {
 	ItemID   string  `json:"item_id"`
 	Turnover float64 `json:"turnover"`
 	ItemType string  `json:"item_type"`
 }
-
-// Slot represents a warehouse slot with relevant placement information
 type Slot struct {
 	SlotID         string `json:"slot_id"`
 	IsOccupied     bool   `json:"is_occupied"`

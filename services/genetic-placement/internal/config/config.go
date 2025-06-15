@@ -13,7 +13,7 @@ type Config struct {
 	DBUser     string
 	DBPassword string
 	DBName     string
-	// Add weights for genetic algorithm fitness function
+
 	WeightDistance       float64
 	WeightSize           float64
 	WeightStorageConditions float64
@@ -23,13 +23,13 @@ func LoadConfig() *Config {
 	port := getEnv("DB_PORT", "5432")
 	portInt, _ := strconv.Atoi(port)
 	
-	// Default weights for fitness function
+
 	weightDist, _ := strconv.ParseFloat(getEnv("WEIGHT_DISTANCE", "1.0"), 64)
 	weightSize, _ := strconv.ParseFloat(getEnv("WEIGHT_SIZE", "1.0"), 64)
 	weightStorage, _ := strconv.ParseFloat(getEnv("WEIGHT_STORAGE", "1.0"), 64)
 
 	return &Config{
-		ServerPort: getEnv("SERVER_PORT", "8085"), // Порт для Genetic service
+		ServerPort: getEnv("SERVER_PORT", "8085"),
 		DBHost:     getEnv("DB_HOST", "localhost"),
 		DBPort:     port,
 		DBPortInt:  portInt,

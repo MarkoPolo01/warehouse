@@ -7,8 +7,6 @@ import (
 
 	_ "github.com/lib/pq"
 )
-
-// Config содержит конфигурацию подключения к базе данных
 type Config struct {
 	Host     string
 	Port     int
@@ -18,7 +16,6 @@ type Config struct {
 	SSLMode  string
 }
 
-// NewPostgresConnection создает новое подключение к PostgreSQL
 func NewPostgresConnection(cfg *Config) (*sql.DB, error) {
 	connStr := fmt.Sprintf(
 		"host=%s port=%d user=%s password=%s dbname=%s sslmode=%s",

@@ -1,13 +1,12 @@
 package domain
 
-// PlaceRequest represents a request to analyze or place an item
 type PlaceRequest struct {
 	ItemID   string  `json:"item_id"`
 	BatchID  string  `json:"batch_id"`
 	Quantity int     `json:"quantity"`
-	Command  string  `json:"command"` // "analyze" or "place"
+	Command  string  `json:"command"`
 
-	// Параметры товара
+
 	Weight        float64 `json:"weight"`
 	Volume        float64 `json:"volume"`
 	TurnoverRate  float64 `json:"turnover_rate"`
@@ -21,13 +20,11 @@ type PlaceRequest struct {
 	StorageTemp   float64 `json:"storage_temp"`
 	StorageHumidity float64 `json:"storage_humidity"`
 
-	// Параметры склада
+
 	WarehouseLoad float64 `json:"warehouse_load"`
 	HasFixedSlot  bool    `json:"has_fixed_slot"`
 	FastAccessZone bool   `json:"fast_access_zone"`
 }
-
-// PlaceResponse represents the system's response to a placement request
 type PlaceResponse struct {
 	Success bool    `json:"success"`
 	SlotID  string  `json:"slot_id,omitempty"`
@@ -35,7 +32,7 @@ type PlaceResponse struct {
 	Score   float64 `json:"score"`
 }
 
-// Item represents an item from the database with relevant characteristics
+
 type Item struct {
 	ItemID             string  `json:"item_id"`
 	Name               string  `json:"name"`
@@ -50,7 +47,7 @@ type Item struct {
 	Mr                 float64 `json:"mr"`       // for XYZ
 }
 
-// Slot represents a warehouse slot with relevant information
+
 type Slot struct {
 	SlotID             string  `json:"slot_id"`
 	LocationDescription string  `json:"location_description"`
@@ -62,12 +59,11 @@ type Slot struct {
 	IsOccupied         bool    `json:"is_occupied"`
 	ZoneType           string  `json:"zone_type"`
 	Level              int     `json:"level"`
-	DistanceFromExit   int     `json:"distance_from_exit"` // for logistics
+	DistanceFromExit   int     `json:"distance_from_exit"`
 }
 
-// PlacementCandidate represents a possible item-slot placement combination
 type PlacementCandidate struct {
 	Item    *Item
 	Slot    *Slot
-	Fitness float64 // The calculated fitness score for this candidate
+	Fitness float64
 }

@@ -9,22 +9,21 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// PlacementHandler обрабатывает HTTP-запросы для размещения товаров
 type PlacementHandler struct {
 	service *service.PlacementService
 }
 
-// NewPlacementHandler создает новый экземпляр PlacementHandler
+
 func NewPlacementHandler(service *service.PlacementService) *PlacementHandler {
 	return &PlacementHandler{service: service}
 }
 
-// RegisterRoutes регистрирует маршруты для обработчика
+
 func (h *PlacementHandler) RegisterRoutes(router *gin.Engine) {
 	router.POST("/api/v1/fixed-placement", h.ProcessPlacementRequest)
 }
 
-// ProcessPlacementRequest обрабатывает общий запрос на размещение/анализ
+
 func (h *PlacementHandler) ProcessPlacementRequest(c *gin.Context) {
 	var req domain.PlaceRequest
 	if err := c.ShouldBindJSON(&req); err != nil {

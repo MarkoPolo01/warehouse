@@ -1,17 +1,17 @@
 package config
 
-// ServiceConfig содержит конфигурацию микросервиса
+
 type ServiceConfig struct {
 	Name string
 	URL  string
 }
 
-// Config содержит конфигурацию всех микросервисов
+
 type Config struct {
 	Services map[string]ServiceConfig
 }
 
-// NewConfig создает новую конфигурацию
+
 func NewConfig() *Config {
 	return &Config{
 		Services: map[string]ServiceConfig{

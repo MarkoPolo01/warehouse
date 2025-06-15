@@ -6,12 +6,10 @@ import (
 	"warehouse/services/fixed-placement/internal/domain"
 )
 
-// PostgresRepository реализует интерфейс Repository для PostgreSQL
 type PostgresRepository struct {
 	db *sql.DB
 }
 
-// NewPostgresRepository создает новый экземпляр PostgresRepository
 func NewPostgresRepository(db *sql.DB) *PostgresRepository {
 	return &PostgresRepository{db: db}
 }

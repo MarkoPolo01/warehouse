@@ -1,13 +1,13 @@
 package domain
 
-// PlaceRequest представляет запрос на размещение товара
+
 type PlaceRequest struct {
 	ItemID   string  `json:"item_id"`
 	BatchID  string  `json:"batch_id"`
 	Quantity int     `json:"quantity"`
-	Command  string  `json:"command"` // "analyze" или "place"
+	Command  string  `json:"command"`
 
-	// Параметры товара
+
 	Weight        float64 `json:"weight"`
 	Volume        float64 `json:"volume"`
 	TurnoverRate  float64 `json:"turnover_rate"`
@@ -21,13 +21,12 @@ type PlaceRequest struct {
 	StorageTemp   float64 `json:"storage_temp"`
 	StorageHumidity float64 `json:"storage_humidity"`
 
-	// Параметры склада
+
 	WarehouseLoad float64 `json:"warehouse_load"`
 	HasFixedSlot  bool    `json:"has_fixed_slot"`
 	FastAccessZone bool   `json:"fast_access_zone"`
 }
 
-// PlaceResponse представляет ответ на запрос размещения
 type PlaceResponse struct {
 	Success bool    `json:"success"`
 	SlotID  string  `json:"slot_id"`

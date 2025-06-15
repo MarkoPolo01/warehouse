@@ -8,23 +8,18 @@ import (
 
 	"github.com/gin-gonic/gin"
 )
-
-// PlacementHandler handles HTTP requests for ABC placement
 type PlacementHandler struct {
 	service *service.PlacementService
 }
 
-// NewPlacementHandler creates a new instance of PlacementHandler
 func NewPlacementHandler(service *service.PlacementService) *PlacementHandler {
 	return &PlacementHandler{service: service}
 }
 
-// RegisterRoutes registers the routes for the handler
 func (h *PlacementHandler) RegisterRoutes(router *gin.Engine) {
 	router.POST("/api/v1/abc-placement", h.ProcessPlacementRequest)
 }
 
-// ProcessPlacementRequest handles incoming placement requests (analyze or place)
 func (h *PlacementHandler) ProcessPlacementRequest(c *gin.Context) {
 	var req domain.PlaceRequest
 	if err := c.ShouldBindJSON(&req); err != nil {

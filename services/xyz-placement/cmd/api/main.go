@@ -13,17 +13,17 @@ import (
 )
 
 func main() {
-	// Load configuration
+	
 	cfg := config.LoadConfig()
 
-	// Initialize database connection
+
 	dbConfig := &database.Config{
 		Host:     cfg.DBHost,
 		Port:     cfg.DBPortInt,
 		User:     cfg.DBUser,
 		Password: cfg.DBPassword,
 		DBName:   cfg.DBName,
-		SSLMode:  "disable", // Adjust as needed
+		SSLMode:  "disable", 
 	}
 
 	db, err := database.NewPostgresConnection(dbConfig)
@@ -32,18 +32,18 @@ func main() {
 	}
 	defer db.Close()
 
-	// Initialize dependencies
+
 	repo := repository.NewPostgresRepository(db)
 	placementService := service.NewPlacementService(repo)
 	placementHandler := handler.NewPlacementHandler(placementService)
 
-	// Setup router
+
 	router := gin.Default()
 
-	// Register routes
+
 	placementHandler.RegisterRoutes(router)
 
-	// Start server
+	
 	serverAddr := ":" + cfg.ServerPort
 	log.Printf("XYZ Placement Service starting on %s", serverAddr)
 	if err := router.Run(serverAddr); err != nil {

@@ -13,10 +13,8 @@ import (
 )
 
 func main() {
-	// Загрузка конфигурации
 	cfg := config.LoadConfig()
 
-	// Инициализация подключения к базе данных
 	dbConfig := &database.Config{
 		Host:     cfg.DBHost,
 		Port:     cfg.DBPortInt,
@@ -32,16 +30,15 @@ func main() {
 	}
 	defer db.Close()
 
-	// Инициализация зависимостей
 	repo := repository.NewPostgresRepository(db)
 	placementService := service.NewPlacementService(repo)
 	placementHandler := handler.NewPlacementHandler(placementService)
 
-	// Настройка маршрутизатора
+
 	router := gin.Default()
 	placementHandler.RegisterRoutes(router)
 
-	// Запуск сервера
+
 	serverAddr := ":" + cfg.ServerPort
 	log.Printf("Free Placement Service запущен на %s", serverAddr)
 	if err := router.Run(serverAddr); err != nil {
